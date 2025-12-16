@@ -1,0 +1,9 @@
+y_true: [1 0 1 ... 0 0 0]
+y_pred: [0 0 0 ... 0 0 0]
+y_prob: [0.4779835  0.4779835  0.4779835  ... 0.47792608 0.4779835  0.4779835 ]
+
+Final Test Set Performance:
+Accuracy  : 0.8997
+Precision : 0.0000
+F1-score  : 0.0000
+AUROC     : 0.5009
