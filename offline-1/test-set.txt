@@ -1,3 +1,104 @@
+
+Training Model: fnn_2layer
+Epoch [1/20] - Val Acc: 0.8997
+Epoch [2/20] - Val Acc: 0.8996
+Epoch [3/20] - Val Acc: 0.8973
+Epoch [4/20] - Val Acc: 0.8741
+Epoch [5/20] - Val Acc: 0.8524
+Epoch [6/20] - Val Acc: 0.8505
+Epoch [7/20] - Val Acc: 0.8629
+Epoch [8/20] - Val Acc: 0.7982
+Epoch [9/20] - Val Acc: 0.8017
+Epoch [10/20] - Val Acc: 0.7503
+Epoch [11/20] - Val Acc: 0.7917
+Epoch [12/20] - Val Acc: 0.7302
+Epoch [13/20] - Val Acc: 0.8292
+Epoch [14/20] - Val Acc: 0.7435
+Epoch [15/20] - Val Acc: 0.7945
+Epoch [16/20] - Val Acc: 0.8265
+Epoch [17/20] - Val Acc: 0.7482
+Epoch [18/20] - Val Acc: 0.6881
+Epoch [19/20] - Val Acc: 0.7185
+Epoch [20/20] - Val Acc: 0.7177
+Validation Accuracy: 0.7177
+
+Training Model: fnn_3layer
+Epoch [1/20] - Val Acc: 0.8997
+Epoch [2/20] - Val Acc: 0.8997
+Epoch [3/20] - Val Acc: 0.8997
+Epoch [4/20] - Val Acc: 0.8997
+Epoch [5/20] - Val Acc: 0.8997
+Epoch [6/20] - Val Acc: 0.8984
+Epoch [7/20] - Val Acc: 0.8996
+Epoch [8/20] - Val Acc: 0.8726
+Epoch [9/20] - Val Acc: 0.7627
+Epoch [10/20] - Val Acc: 0.8615
+Epoch [11/20] - Val Acc: 0.7002
+Epoch [12/20] - Val Acc: 0.7860
+Epoch [13/20] - Val Acc: 0.7806
+Epoch [14/20] - Val Acc: 0.7877
+Epoch [15/20] - Val Acc: 0.8095
+Epoch [16/20] - Val Acc: 0.7585
+Epoch [17/20] - Val Acc: 0.7711
+Epoch [18/20] - Val Acc: 0.7682
+Epoch [19/20] - Val Acc: 0.7988
+Epoch [20/20] - Val Acc: 0.7762
+Validation Accuracy: 0.7762
+
+Training Model: fnn_dropout
+Epoch [1/20] - Val Acc: 0.8997
+Epoch [2/20] - Val Acc: 0.8997
+Epoch [3/20] - Val Acc: 0.8988
+Epoch [4/20] - Val Acc: 0.8887
+Epoch [5/20] - Val Acc: 0.8996
+Epoch [6/20] - Val Acc: 0.8992
+Epoch [7/20] - Val Acc: 0.8954
+Epoch [8/20] - Val Acc: 0.8610
+Epoch [9/20] - Val Acc: 0.8996
+Epoch [10/20] - Val Acc: 0.8708
+Epoch [11/20] - Val Acc: 0.8969
+Epoch [12/20] - Val Acc: 0.8806
+Epoch [13/20] - Val Acc: 0.8844
+Epoch [14/20] - Val Acc: 0.8962
+Epoch [15/20] - Val Acc: 0.8876
+Epoch [16/20] - Val Acc: 0.8993
+Epoch [17/20] - Val Acc: 0.8997
+Epoch [18/20] - Val Acc: 0.8987
+Epoch [19/20] - Val Acc: 0.8869
+Epoch [20/20] - Val Acc: 0.8834
+Validation Accuracy: 0.8834
+
+Training Model: fnn_wide
+Epoch [1/20] - Val Acc: 0.8997
+Epoch [2/20] - Val Acc: 0.8997
+Epoch [3/20] - Val Acc: 0.8997
+Epoch [4/20] - Val Acc: 0.8857
+Epoch [5/20] - Val Acc: 0.8997
+Epoch [6/20] - Val Acc: 0.8588
+Epoch [7/20] - Val Acc: 0.8883
+Epoch [8/20] - Val Acc: 0.8016
+Epoch [9/20] - Val Acc: 0.8323
+Epoch [10/20] - Val Acc: 0.8434
+Epoch [11/20] - Val Acc: 0.8729
+Epoch [12/20] - Val Acc: 0.8442
+Epoch [13/20] - Val Acc: 0.8495
+Epoch [14/20] - Val Acc: 0.8283
+Epoch [15/20] - Val Acc: 0.8383
+Epoch [16/20] - Val Acc: 0.8325
+Epoch [17/20] - Val Acc: 0.8589
+Epoch [18/20] - Val Acc: 0.8381
+Epoch [19/20] - Val Acc: 0.7767
+Epoch [20/20] - Val Acc: 0.8121
+Validation Accuracy: 0.8121
+
+==============================
+Scaler: minmax
+==============================
+Correlation of each feature with the target:
+
+
+
+
 y_true: [1 0 1 ... 0 0 0]
 y_pred: [0 0 0 ... 0 0 0]
 y_prob: [0.4779835  0.4779835  0.4779835  ... 0.47792608 0.4779835  0.4779835 ]
