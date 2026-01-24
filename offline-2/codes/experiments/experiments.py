@@ -8,6 +8,7 @@ from evaluation.sklearn_baselines import (
     SklearnRandomForest,
     SklearnExtraTrees
 )
+from sklearn.model_selection import StratifiedShuffleSplit
 
 from models.decision_tree import DecisionTree
 from models.random_forest import RandomForest
@@ -95,7 +96,6 @@ def run_single_experiment(
 
     return results
 
-
 # ==================================================
 # Compare Custom vs Sklearn
 # ==================================================
@@ -143,16 +143,28 @@ def compare_models(model_name, dataset):
 
 def compare_all_models(dataset):
     """
-    Compare DT, RF, ET (custom vs sklearn)
+    Compare DT, RF, ET (custom vs sklearn).
+    Returns a pandas DataFrame.
     """
 
-    results = {}
+    records = []
 
     for model in ["dt", "rf", "et"]:
-        results[model] = compare_models(model, dataset)
 
-    return results
+        comparison = compare_models(model, dataset)
 
+        for impl in ["custom", "sklearn"]:
+
+            record = {
+                "model": model,
+                "impl": impl,
+                "dataset": dataset
+            }
+
+            record.update(comparison[impl])
+            records.append(record)
+
+    return pd.DataFrame(records)
 
 # ==================================================
 # Hyperparameter Sweep
@@ -162,12 +174,41 @@ def hyperparameter_sweep(
     model_name,
     dataset,
     param_name,
-    param_values,
+    param_values=None,
+    train_sizes=None,
     impl="custom"
 ):
     """
     Run experiments for different hyperparameter values.
+
+    Supports normal hyperparameters and train-size sweeps.
     """
+
+    # ============================
+    # Case 1: Learning Curve Sweep
+    # ============================
+
+    if param_name == "train_fraction" or train_sizes is not None:
+
+        if train_sizes is None:
+            train_sizes = param_values
+
+        df = learning_curve(
+            model_name,
+            dataset,
+            train_sizes,
+            impl=impl
+        )
+
+        df["param"] = "train_fraction"
+        df["value"] = df["train_fraction"]
+
+        return df
+
+
+    # ============================
+    # Case 2: Normal Param Sweep
+    # ============================
 
     records = []
 
@@ -208,6 +249,7 @@ def hyperparameter_sweep(
         records.append(record)
 
     return pd.DataFrame(records)
+
 
 
 # ==================================================
@@ -290,6 +332,75 @@ def learning_curve(
 
         model.fit(X_train, y_train)
 
+        evaluator = Evaluator(EVALUATION_CONFIG["metrics"])
+        result = evaluator.evaluate(model, X_test, y_test)
+
+        record = {
+            "train_fraction": size,
+            "model": model_name,
+            "impl": impl,
+            "dataset": dataset
+        }
+
+        record.update(result)
+        records.append(record)
+
+    return pd.DataFrame(records)
+
+
+
+def learning_curve(
+    model_name,
+    dataset,
+    train_sizes,
+    impl="custom"
+):
+    """
+    Analyze performance vs training set size using stratified sampling.
+    """
+
+    loader = DatasetLoader(
+        test_size=DATASET_CONFIG[dataset]["test_size"],
+        random_state=RANDOM_SEED
+    )
+
+    # Load full dataset
+    X, y = loader.load(dataset)
+
+    records = []
+
+    for size in train_sizes:
+
+        n_train = int(len(X) * size)
+
+        # Stratified subsampling
+        splitter = StratifiedShuffleSplit(
+            n_splits=1,
+            train_size=n_train,
+            random_state=RANDOM_SEED
+        )
+
+        for train_idx, _ in splitter.split(X, y):
+
+            X_sub = X[train_idx]
+            y_sub = y[train_idx]
+
+        # Stratified train-test split
+        X_train, X_test, y_train, y_test = loader.train_test_split(
+            X_sub, y_sub
+        )
+
+        # Build model
+        model = build_model(
+            model_name,
+            impl,
+            **get_base_params(model_name)
+        )
+
+        # Train
+        model.fit(X_train, y_train)
+
+        # Evaluate
         evaluator = Evaluator(EVALUATION_CONFIG["metrics"])
         result = evaluator.evaluate(model, X_test, y_test)
 
